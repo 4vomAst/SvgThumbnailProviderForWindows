@@ -1,3 +1,9 @@
+## Installation
+Compile Debug x64
+Run Visual Studio Native Tools Command Prompt x64 as Administrator
+Goto: <project root>\SvgThumbnailProviderForWindows\SvgThumbnailProvider\bin\x64\Debug\
+Execute: regasm /codebase SvgThumbnailProvider.dll
+
 ## License
 Licensed under the MIT license.
 
