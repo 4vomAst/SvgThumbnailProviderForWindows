@@ -17,13 +17,10 @@ namespace SvgThumbnailProvider
    {
       public SvgThumbnailHandler()
       {
-         Log("Constructor");
       }
 
       protected override Bitmap GetThumbnailImage(uint width)
       {
-         Log("Drin");
-
          //  Create a stream reader for the selected item stream
          try
          {
