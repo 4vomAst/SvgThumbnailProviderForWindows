@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="SVG Thumbnails" Language="1033" Version="1.0.0.0" Manufacturer="4vomAst" UpgradeCode="03dc0be6-6ba9-49e0-ac9f-fa55b92e4225">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="SVG Thumbnails" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+        <UIRef Id="WixUI_Minimal" />
+
+        <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+        
+    </Product>
+    
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="SVG Thumbnails" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="SvgThumbNailProviderDll">
+                <File Id="SvgThumbNailProviderDll" 
+                      Name="$(var.SvgThumbnailProvider.TargetFileName)" 
+                      Source="$(var.SvgThumbnailProvider.TargetPath)" 
+                      DiskId="1"
+                      Assembly=".net"/>
+            </Component>
+            <Component Id="SvgDll">
+                <File Id="SvgDll" 
+                      Name="Svg.dll" 
+                      Source="$(var.SvgThumbnailProvider.TargetDir)Svg.dll" 
+                      DiskId="1" />
+            </Component>
+            <Component Id="SharpShellDll">
+                <File Id="SSharpShellDll" 
+                      Name="SharpShell.dll" 
+                      Source="$(var.SvgThumbnailProvider.TargetDir)SharpShell.dll" 
+                      DiskId="1" />
+            </Component>
+            <Component Id="FizzlerDll">
+                <File Id="FizzlerDll" 
+                      Name="Fizzler.dll" 
+                      Source="$(var.SvgThumbnailProvider.TargetDir)Fizzler.dll" 
+                      DiskId="1" />
+            </Component>
+        </ComponentGroup>
+	</Fragment>
+
+</Wix>
