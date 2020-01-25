@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="SVG Thumbnails" Language="1033" Version="1.0.0.0" Manufacturer="4vomAst" UpgradeCode="03dc0be6-6ba9-49e0-ac9f-fa55b92e4225">
+    <?include version.wxi ?>
+	<Product Id="*" 
+             Name="SVG Preview for Windows v$(var.MajorVersion).$(var.MinorVersion).$(var.BuildNumber)" 
+             Language="1033" 
+             Version="$(var.MajorVersion).$(var.MinorVersion).$(var.BuildNumber).0" 
+             Manufacturer="4vomAst" 
+             UpgradeCode="03dc0be6-6ba9-49e0-ac9f-fa55b92e4225">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="SVG Thumbnails" Level="1">
+		<Feature Id="ProductFeature" Title="SVG Preview" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
         <UIRef Id="WixUI_Minimal" />
