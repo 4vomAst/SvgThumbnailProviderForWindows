@@ -7,7 +7,10 @@
              Version="$(var.MajorVersion).$(var.MinorVersion).$(var.BuildNumber).0" 
              Manufacturer="4vomAst" 
              UpgradeCode="03dc0be6-6ba9-49e0-ac9f-fa55b92e4225">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<Package InstallerVersion="200" 
+            Compressed="yes" 
+            InstallScope="perMachine"
+            InstallPrivileges="elevated" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
@@ -18,7 +21,15 @@
         <UIRef Id="WixUI_Minimal" />
 
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+
+        <InstallExecuteSequence>
+            <Custom Action="RegisterShellExtension" After="InstallFiles">NOT REMOVE</Custom>
+            <Custom Action="UnRegisterShellExtension" Before="RemoveFiles">REMOVE="ALL"</Custom>
+        </InstallExecuteSequence>
         
+        <CustomAction Id ="RegisterShellExtension" FileKey="srm" Execute="deferred" Impersonate="no" ExeCommand="install &quot;[INSTALLFOLDER]$(var.SvgThumbnailProvider.TargetFileName)&quot; -codebase -os64" Return ="check"/>
+        <CustomAction Id ="UnRegisterShellExtension" FileKey="srm" Execute="deferred" Impersonate="no" ExeCommand="uninstall &quot;[INSTALLFOLDER]$(var.SvgThumbnailProvider.TargetFileName)&quot; -codebase -os64" Return="ignore" />
+
     </Product>
     
 
@@ -36,8 +47,13 @@
                 <File Id="SvgThumbNailProviderDll" 
                       Name="$(var.SvgThumbnailProvider.TargetFileName)" 
                       Source="$(var.SvgThumbnailProvider.TargetPath)" 
-                      DiskId="1"
-                      Assembly=".net"/>
+                      DiskId="1" />
+            </Component>
+            <Component Id="ServerRegistrationManagerExe">
+                <File Id="srm"
+                      Name="ServerRegistrationManager.exe"
+                      Source="$(var.SvgThumbnailProvider.TargetDir)ServerRegistrationManager.exe"
+                      DiskId="1" />
             </Component>
             <Component Id="SvgDll">
                 <File Id="SvgDll" 
